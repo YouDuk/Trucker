@@ -28,7 +28,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    client = new Client("52.79.189.195", 5001);
+                    client = new Client("169.56.80.26", 5001);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

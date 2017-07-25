@@ -3,6 +3,7 @@ package trucker.trucker;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
@@ -26,13 +27,23 @@ public class TruckersFragment extends Fragment {
 
     MapView mMapView;
     private GoogleMap googleMap;
+    static Marker marker_a;
+    static Marker marker_b;
+    static boolean isRunning=false;
+    static Handler handler;
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        isRunning = false;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final View view = inflater.inflate(R.layout.fragment_truckers, container, false);
-
+        isRunning = true;
+        handler= new Handler();
 
         mMapView = (MapView) view.findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);
@@ -57,14 +68,14 @@ public class TruckersFragment extends Fragment {
 
                 googleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
 
-                googleMap.addMarker(new MarkerOptions()
+                marker_a = googleMap.addMarker(new MarkerOptions()
                         .position(sk_telecoms)
                         .title("신전 떡볶이")
                         .snippet("서울시 서초구 양재동 언남중학교 사거리")
                         .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("logo", 150, 150)))
                 );
 
-                googleMap.addMarker(new MarkerOptions()
+                marker_b = googleMap.addMarker(new MarkerOptions()
                         .position(을지로입구역)
                         .title("치킨 트럭")
                         .snippet("서울시 서초구 양재동 언남중학교 사거리")

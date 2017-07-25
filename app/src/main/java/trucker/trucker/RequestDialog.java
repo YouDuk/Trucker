@@ -37,7 +37,7 @@ public class RequestDialog extends Dialog {
             public void onClick(View view) {
                 final JSONObject json = new JSONObject();
                 try {
-                    json.put("code", "01");
+                    json.put("code", "02");
                     json.put("message", message.getText());
 
                 } catch (JSONException e) {
