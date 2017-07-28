@@ -76,7 +76,7 @@ public class Client {
                             System.out.println("Receive Data : " + msg);
                                 Log.e("Response", msg);
                             if (TruckersFragment.isRunning && json.get("code").equals("01")) {
-                                Log.e("CODE 01", "LAT : " + Double.parseDouble(json.get("lat").toString()) + " LON : " + Double.parseDouble(json.get("lon").toString()));
+//                                Log.e("CODE 01", "LAT : " + Double.parseDouble(json.get("lat").toString()) + " LON : " + Double.parseDouble(json.get("lon").toString()));
 
                                 TruckersFragment.handler.post(new Runnable() {
                                     @Override
