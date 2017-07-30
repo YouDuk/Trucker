@@ -2,6 +2,8 @@ package trucker.trucker;
 
 import android.util.Log;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
@@ -74,7 +76,7 @@ public class Client {
                             final JSONObject json = new JSONObject(msg);
 
                             System.out.println("Receive Data : " + msg);
-                                Log.e("Response", msg);
+                            Log.e("Response", msg);
                             if (TruckersFragment.isRunning && json.get("code").equals("01")) {
 //                                Log.e("CODE 01", "LAT : " + Double.parseDouble(json.get("lat").toString()) + " LON : " + Double.parseDouble(json.get("lon").toString()));
 
@@ -82,7 +84,10 @@ public class Client {
                                     @Override
                                     public void run() {
                                         try {
-                                            TruckersFragment.marker_a.setPosition(new LatLng(Double.parseDouble(json.get("lat").toString()), Double.parseDouble(json.get("lon").toString())));
+//                                            TruckersFragment.marker_a.setPosition(new LatLng(Double.parseDouble(json.get("lat").toString()), Double.parseDouble(json.get("lon").toString())));
+                                            CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(Double.parseDouble(json.get("lat").toString()), Double.parseDouble(json.get("lon").toString()))).zoom(15).build();
+                                            TruckersFragment.googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                                            MarkerAnimation.animateMarkerToICS(TruckersFragment.marker_a, new LatLng(Double.parseDouble(json.get("lat").toString()), Double.parseDouble(json.get("lon").toString())), new LatLngInterpolator.Spherical());
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }

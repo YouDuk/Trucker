@@ -26,12 +26,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class TruckersFragment extends Fragment {
 
     MapView mMapView;
-    private GoogleMap googleMap;
+    static GoogleMap googleMap;
     static Marker marker_a;
     static Marker marker_b;
-    static boolean isRunning=false;
+    static boolean isRunning = false;
     static Handler handler;
-
+    LatLng sk_telecoms;
+    LatLng 을지로입구역;
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -43,7 +44,7 @@ public class TruckersFragment extends Fragment {
         super.onCreate(savedInstanceState);
         final View view = inflater.inflate(R.layout.fragment_truckers, container, false);
         isRunning = true;
-        handler= new Handler();
+        handler = new Handler();
 
         mMapView = (MapView) view.findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);
@@ -63,8 +64,8 @@ public class TruckersFragment extends Fragment {
 
 
                 // For dropping a marker at a point on the Map
-                LatLng sk_telecoms = new LatLng(37.566456, 126.985045);
-                LatLng 을지로입구역 = new LatLng(37.566056, 126.982980);
+                sk_telecoms = new LatLng(37.265147, 127.399731);
+                을지로입구역 = new LatLng(37.566056, 126.982980);
 
                 googleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
 
@@ -72,23 +73,104 @@ public class TruckersFragment extends Fragment {
                         .position(sk_telecoms)
                         .title("신전 떡볶이")
                         .snippet("서울시 서초구 양재동 언남중학교 사거리")
-                        .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("logo", 150, 150)))
+                        .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("logo", 100, 100)))
                 );
 
                 marker_b = googleMap.addMarker(new MarkerOptions()
                         .position(을지로입구역)
                         .title("치킨 트럭")
                         .snippet("서울시 서초구 양재동 언남중학교 사거리")
-                        .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("logo", 150, 150)))
+                        .icon(BitmapDescriptorFactory.fromBitmap(resizeMapIcons("logo", 100, 100)))
                 );
 
                 // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(을지로입구역).zoom(15).build();
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(sk_telecoms).zoom(15).build();
                 googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                 cameraPosition = new CameraPosition.Builder().target(sk_telecoms).zoom(16).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
+//
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Thread.sleep(5000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//
+//
+//
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+////                        marker_a.setPosition(new LatLng(37.265147, 127.399731));
+////                        CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(37.265147, 127.399731)).zoom(15).build();
+////                        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+//                        MarkerAnimation.animateMarkerToICS(marker_a, new LatLng(37.265147, 127.399731), new LatLngInterpolator.Spherical());
+//                    }
+//                });
+//                try {
+//                    Thread.sleep(4000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+////                        marker_a.setPosition(new LatLng(37.266732, 127.400245));
+//                        CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(37.266732, 127.400245)).zoom(15).build();
+//                        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+//                        MarkerAnimation.animateMarkerToICS(marker_a, new LatLng(37.266732, 127.400245), new LatLngInterpolator.Spherical());
+//                    }
+//                });
+//                try {
+//                    Thread.sleep(4000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+////                        marker_a.setPosition(new LatLng(37.270842, 127.402310));
+//                        CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(37.270842, 127.402310)).zoom(15).build();
+//                        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+//                        MarkerAnimation.animateMarkerToICS(marker_a, new LatLng(37.270842, 127.402310), new LatLngInterpolator.Spherical());
+//                    }
+//                });
+//                try {
+//                    Thread.sleep(4000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+////                        marker_a.setPosition(new LatLng(37.273547, 127.399798));
+//                        CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(37.273547, 127.399798)).zoom(15).build();
+//                        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+//                        MarkerAnimation.animateMarkerToICS(marker_a, new LatLng(37.273547, 127.399798), new LatLngInterpolator.Spherical());
+//                    }
+//                });
+//                try {
+//                    Thread.sleep(4000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+////                        marker_a.setPosition(new LatLng(37.277096, 127.399249));
+//                        CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(37.277096, 127.399249)).zoom(15).build();
+//                        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+//                        MarkerAnimation.animateMarkerToICS(marker_a, new LatLng(37.277096, 127.399249), new LatLngInterpolator.Spherical());
+//                    }
+//                });
+//
+//
+//            }
+//        }).start();
 
 
         return view;
